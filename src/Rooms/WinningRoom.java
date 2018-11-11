@@ -5,6 +5,8 @@ import People.Person;
 import People.Chaser;
 import People.Characters;
 import Game.Runner;
+
+
 public class WinningRoom extends MainRoom
 {
     private int xLoc,yLoc;
@@ -33,9 +35,22 @@ public class WinningRoom extends MainRoom
         Runner.makeExpert();
         Runner.checkPlaying();
     }
-
+public int getxLoc()
+{
+    return xLoc;
+}
+    public int getyLoc()
+    {
+        return yLoc;
+    }
     public String toString()
     {
         return "  |★★★|";
+    }
+    public void clearAllOccupants()
+    {
+        for (int i = 0; i < occupant.length; i++) {
+            occupant[i] = null;
+        }
     }
 }

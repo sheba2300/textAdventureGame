@@ -24,8 +24,8 @@ public class Runner {
                 String playerName = "";
                 String turkeyName = "";
                 String action;
-                int chosenHeight;
-                int chosenWidth;
+                int chosenHeight = 5;
+                int chosenWidth = 5;
                 System.out.println("You are coming home for thanksgiving dinner when you stumble upon a forest.");
                 System.out.println("As you wander, you see a wild angry turkey.");
                 System.out.println("He begins to chase you.");
@@ -37,6 +37,8 @@ public class Runner {
                 turkeyName = input.nextLine();
                 MainRoom[][] building;
                 //jmm
+            Person player = new Person(playerName, 0, 0, "person");
+            Chaser turkey = new Chaser(turkeyName, 2, 2, "chaser");
                 if (expert) {
                     System.out.println("Since you played this game before, you can now customize your own board");
                     System.out.println("Please enter the height of your board with a minimum of 6. EX: 6 will give you a board with 6 rows");
@@ -44,7 +46,7 @@ public class Runner {
                     System.out.println("Please enter the width of your board with a minimum of 6. EX: 6 will give you a board with 6 columns");
                     chosenWidth = input.nextInt();
                     building = new MainRoom[chosenHeight][chosenWidth];
-                    building[chosenHeight - 1][chosenWidth - 1] = new WinningRoom(chosenHeight - 1, chosenWidth - 1);
+
                 } else {
                     building = new MainRoom[5][5];
 
@@ -52,6 +54,8 @@ public class Runner {
 
                     //Create a random winning room.
                     building[4][4] = new WinningRoom(4, 4);
+
+
                 }
                 for (int x = 0; x < building.length; x++) {
                     for (int y = 0; y < building[x].length; y++) {
@@ -60,8 +64,8 @@ public class Runner {
                     }
                 }
                 //Setup player 1 and the input scanner
-                Person player = new Person(playerName, 0, 0, "person");
-                Chaser turkey = new Chaser(turkeyName, 2, 2, "chaser");
+            building[chosenHeight - 1][chosenWidth -1] = new WinningRoom(chosenHeight - 1, chosenWidth - 1);
+
 
                 building[0][0].enterRoom(player);
                 building[2][2].enterRoom(turkey);
