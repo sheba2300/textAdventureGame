@@ -1,6 +1,7 @@
 // Sheba Sow
 package People;
 public class Characters {
+    //major class that person and chaser is under. they share these characteristics and functions
     private String firstName,type;
     private int xLoc, yLoc;
 

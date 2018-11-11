@@ -5,6 +5,8 @@ import Rooms.MainRoom;
 
 public class Chaser extends Characters
 {
+    //represents turkey contains their location, datatype, name and symbol that will be displayed on the board
+
     private String firstName, type;
     private int xLoc, yLoc;
     public Chaser (String firstName, int xLoc, int yLoc, String type)
@@ -18,6 +20,7 @@ public class Chaser extends Characters
 
     public String getAction(Chaser x, MainRoom[][] y)
     {
+        //generates a random action (north,south,east,west)
         String turkeyAction;
         int chance = 0;
         chance = (int) (Math.floor(Math.random() * 4))+1;
@@ -39,7 +42,7 @@ public class Chaser extends Characters
 
     }
     public static boolean validMove(String move, Characters p, MainRoom[][] building) {
-
+    // checks if turkey can move to the location that was randomly generated. if it cant its a free-be for the user to move
         move = move.toLowerCase().trim();
         switch (move) {
             case "n":

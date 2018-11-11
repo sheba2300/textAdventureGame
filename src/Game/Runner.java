@@ -8,13 +8,12 @@ import Rooms.MainRoom;
 import Rooms.Rooms;
 import People.Characters;
 import Rooms.WinningRoom;
-public class Runner {
-
-
+public class Runner
+{
     private static boolean gameOn = true;
-    private static boolean expert = false;
-    private static int play;
-    private static boolean playing = true;
+    private static boolean expert = false; // determines if user completed basic round yet
+     private static int play; //saves user's response to "keep playing"
+    private static boolean playing = true; //determines if user want to keep playign
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         Scanner in = new Scanner(System.in);
@@ -26,6 +25,7 @@ public class Runner {
                 String action;
                 int chosenHeight = 5;
                 int chosenWidth = 5;
+                //story/ plot of game
                 System.out.println("You are coming home for thanksgiving dinner when you stumble upon a forest.");
                 System.out.println("As you wander, you see a wild angry turkey.");
                 System.out.println("He begins to chase you.");
@@ -36,10 +36,10 @@ public class Runner {
                 System.out.println("Enter the name of the turkey that will be chasing you.");
                 turkeyName = input.nextLine();
                 MainRoom[][] building;
-                //jmm
-            Person player = new Person(playerName, 0, 0, "person");
-            Chaser turkey = new Chaser(turkeyName, 2, 2, "chaser");
+                Person player = new Person(playerName, 0, 0, "person");
+                Chaser turkey = new Chaser(turkeyName, 2, 2, "chaser");
                 if (expert) {
+                    //let user choose their setup
                     System.out.println("Since you played this game before, you can now customize your own board");
                     System.out.println("Please enter the height of your board with a minimum of 6. EX: 6 will give you a board with 6 rows");
                     chosenHeight = input.nextInt();
@@ -48,31 +48,28 @@ public class Runner {
                     building = new MainRoom[chosenHeight][chosenWidth];
 
                 } else {
+                    //default set up
                     building = new MainRoom[5][5];
-
-                    //Fill the building with normal rooms
-
-                    //Create a random winning room.
                     building[4][4] = new WinningRoom(4, 4);
 
 
                 }
+                //builds rooms based on the setup given
                 for (int x = 0; x < building.length; x++) {
                     for (int y = 0; y < building[x].length; y++) {
                         building[x][y] = new MainRoom(x, y);
 
                     }
                 }
-                //Setup player 1 and the input scanner
-            building[chosenHeight - 1][chosenWidth -1] = new WinningRoom(chosenHeight - 1, chosenWidth - 1);
-
-
+                //generates winning room at the end of the board
+                building[chosenHeight-1][chosenWidth-1] = new WinningRoom(chosenHeight-1, chosenWidth-1);
                 building[0][0].enterRoom(player);
                 building[2][2].enterRoom(turkey);
                 Board map = new Board(building);
                 map.fill("| |");
                 System.out.println(map.toString());
                 while (gameOn) {
+                    //user's turn to move
                     System.out.println("Where would you like to move? (Choose N, S, E, W)");
                     String move = in.nextLine();
                     if (validMove(move, player, building)) {
@@ -91,19 +88,19 @@ public class Runner {
                         } else {
                             System.out.println("the turkey did not move");
                         }
-
+                        //turkey's turn to move (generated my chaserRoom function)
                         System.out.println(turkey.getFirstName() + " is located at " + turkey.getxLoc() + "," + turkey.getyLoc());
                         building[turkey.getxLoc()][turkey.getyLoc()].enterRoom(turkey);
 
                     } else {
                         System.out.println("Please choose a valid move.");
                     }
-
+                    //checks to see if user lost and if they wan t to play again
                     if (building[player.getxLoc()][player.getyLoc()].found(building[player.getxLoc()][player.getyLoc()].getOccupants()))
                     {
                         System.out.println(map.toString());
                         checkPlaying();
-
+                        break;
                     }
                     System.out.println(map.toString());
 
